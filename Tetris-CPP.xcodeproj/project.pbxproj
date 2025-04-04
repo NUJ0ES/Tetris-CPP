@@ -24,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		EA77872E2D9BB1B100D86032 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		EA7787302DA0085600D86032 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EA819F202D9A24E1003EC178 /* Tetris-CPP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Tetris-CPP"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,6 +59,7 @@
 		EA819F172D9A24E1003EC178 = {
 			isa = PBXGroup;
 			children = (
+				EA7787302DA0085600D86032 /* .gitignore */,
 				EA819F222D9A24E1003EC178 /* Tetris-CPP */,
 				EA77872D2D9BB1B100D86032 /* Frameworks */,
 				EA819F212D9A24E1003EC178 /* Products */,
