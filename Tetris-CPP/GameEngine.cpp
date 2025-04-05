@@ -98,13 +98,7 @@ void GameEngine::makeDisplayData() {
     
     for (int i = 0; i < USERBLOCK_SIZE; i++) {
         for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            // displayData[blockY + i][blockX + k] = userBlock[i][k];
-            if (!displayData[blockY + i][blockX + k]) {
-                displayData[blockY + i][blockX + k] = userBlock[i][k];
-            }
-            else {
-                // Do Nothing
-            }
+            displayData[blockY + i][blockX + k] = gameGridData[blockY + i][blockX + k] | userBlock[i][k];
         }
     }
 }
@@ -113,16 +107,9 @@ bool GameEngine::canGoDown() {
     for (int i = 0; i < USERBLOCK_SIZE; i++) {
         for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && (blockY + i + 2) > GRID_HEIGHT) return false;
-        }
-    }
-    
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && gameGridData[blockY + i + 1][blockX + k]) return false;
         }
     }
-        
-    
     return true;
 }
 
@@ -130,15 +117,9 @@ bool GameEngine::canGoLeft() {
     for (int i = 0; i < USERBLOCK_SIZE; i++) {
         for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && (blockX + k - 1) < 0) return false;
-        }
-    }
-    
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && gameGridData[blockY + i][blockX + k - 1]) return false;
         }
     }
-    
     return true;
 }
 
@@ -146,15 +127,9 @@ bool GameEngine::canGoRight() {
     for (int i = 0; i < USERBLOCK_SIZE; i++) {
         for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && (blockX + k + 2) > GRID_WIDTH) return false;
-        }
-    }
-    
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
             if (userBlock[i][k] && gameGridData[blockY + i][blockX + k + 1]) return false;
         }
     }
-    
     return true;
 }
 
@@ -190,7 +165,6 @@ void GameEngine::erase(int line) {
 void GameEngine::drop(int line) {
     for (int i = 0; i < line; i++) {
         for (int k = 0; k < GRID_WIDTH; k++) {
-            // TODO: Drop lines above the erased line
             gameGridData[line - i][k] = gameGridData[line - i - 1][k];
         }
     }
