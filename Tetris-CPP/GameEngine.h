@@ -100,6 +100,8 @@ public:
     void erase(int line);
     
     void drop(int line);
+    
+    void determineGameState();
 };
 
 #endif

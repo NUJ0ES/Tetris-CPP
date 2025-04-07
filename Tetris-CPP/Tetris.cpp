@@ -28,7 +28,7 @@ int main(int argc, const char * argv[]) {
     
     gameEngine->init();
     
-    while (true) {
+    while (gameEngine->state == GameEngine::GameState::PLAYING) {
         double curr = (double)clock() / CLOCKS_PER_SEC;
         double dt = curr - prev;
         
@@ -52,6 +52,7 @@ int main(int argc, const char * argv[]) {
         gameEngine->makeDisplayData();
         display->draw();
         
+        gameEngine->determineGameState();
     }
 
     return 0;

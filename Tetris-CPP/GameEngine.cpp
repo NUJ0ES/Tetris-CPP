@@ -174,3 +174,7 @@ void GameEngine::drop(int line) {
         }
     }
 }
+
+void GameEngine::determineGameState() {
+    if (!blockY && !canGoDown()) state = GameState::GAMEOVER;
+}
