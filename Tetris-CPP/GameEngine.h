@@ -91,6 +91,8 @@ public:
     
     bool canGoRight();
     
+    bool canRotate(int rotated[USERBLOCK_SIZE][USERBLOCK_SIZE]);
+    
     void rotate();
     
     bool isFilled(int line);

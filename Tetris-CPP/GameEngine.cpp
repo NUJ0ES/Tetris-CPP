@@ -133,6 +133,17 @@ bool GameEngine::canGoRight() {
     return true;
 }
 
+bool GameEngine::canRotate(int rotated[USERBLOCK_SIZE][USERBLOCK_SIZE]) {
+    for (int i = 0; i < USERBLOCK_SIZE; i++) {
+        for (int k = 0; k < USERBLOCK_SIZE; k++) {
+            if (rotated[i][k] && blockX + k < 0) return false;
+            if (rotated[i][k] && blockX + k >= GRID_WIDTH) return false;
+        }
+    }
+    
+    return true;
+}
+
 void GameEngine::rotate() {
     int temp[USERBLOCK_SIZE][USERBLOCK_SIZE] = { 0, };
     
@@ -147,6 +158,9 @@ void GameEngine::rotate() {
             userBlock[i][k] = temp[i][k];
         }
     }
+    
+    if (!canRotate(temp) && blockX < 0) blockX++;
+    else if (!canRotate(temp) && blockX > GRID_WIDTH - USERBLOCK_SIZE - 1) blockX--;
 }
 
 bool GameEngine::isFilled(int line) {
