@@ -17,40 +17,31 @@ void GameEngine::init() {
 
 void GameEngine::next(double dt, char key) {
     // This will be called every frame
-    if (key == 'l') {
-        if (controlled > 0.1) {
+    if (controlled > 0.1) {
+        if (key == 'l') {
             if (canGoLeft()) {
                 blockX--;
                 controlled = 0.0;
             }
         }
-        else controlled += dt;
-    }
-    else if (key == 'r') {
-        if (controlled > 0.1) {
+        else if (key == 'r') {
             if (canGoRight()) {
                 blockX++;
                 controlled = 0.0;
             }
         }
-        else controlled += dt;
-    }
-    else if (key == 'u') {
-        if (controlled > 0.2) {
+        else if (key == 'u') {
             rotate();
             controlled = 0.0;
         }
-        else controlled += dt;
-    }
-    else if (key == 'd') {
-        if (controlled > 0.1) {
+        else if (key == 'd') {
             if (canGoDown()) {
                 blockY++;
                 controlled = 0.0;
             }
         }
-        else controlled += dt;
     }
+    else controlled += dt;
     
     if (elapsed > 1) {
         if (canGoDown()){
