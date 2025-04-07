@@ -11,9 +11,9 @@
 void Display::draw() {
     printf("\033[H\033[J"); // Make console clear
     //system("clear");
-    for (int i = 0; i < GRID_HEIGHT; i++) {
-        for (int k = 0; k < GRID_WIDTH; k++) {
-            printf(displayData[i][k] ? "■ " : "□ ");
+    for (int y = 0; y < GRID_HEIGHT; y++) {
+        for (int x = 0; x < GRID_WIDTH; x++) {
+            printf(displayData[y][x] ? "■ " : "□ ");
         }
         printf("\n");
     }

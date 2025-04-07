@@ -58,15 +58,15 @@ void GameEngine::next(double dt, char key) {
             elapsed = 0.0;
         }
         else {
-            for (int i = 0; i < USERBLOCK_SIZE; i++) {
-                for (int k = 0; k < USERBLOCK_SIZE; k++) {
-                    if (!gameGridData[blockY + i][blockX + k]) gameGridData[blockY + i][blockX + k] = userBlock[i][k];
+            for (int y = 0; y < USERBLOCK_SIZE; y++) {
+                for (int x = 0; x < USERBLOCK_SIZE; x++) {
+                    if (!gameGridData[blockY + y][blockX + x]) gameGridData[blockY + y][blockX + x] = userBlock[y][x];
                 }
             }
-            for (int i = 0; i < USERBLOCK_SIZE; i++) {
-                if (isFilled(blockY + i)) {
-                    erase(blockY + i);
-                    drop(blockY + i);
+            for (int y = 0; y < USERBLOCK_SIZE; y++) {
+                if (isFilled(blockY + y)) {
+                    erase(blockY + y);
+                    drop(blockY + y);
                 }
             }
             
@@ -82,62 +82,62 @@ void GameEngine::makeUserBlock() {
     blockY = 0;
     
     int various = rand() % 7;
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            GameEngine::userBlock[i][k] = GameEngine::userBlockVarious[various][i][k];
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            GameEngine::userBlock[y][x] = GameEngine::userBlockVarious[various][y][x];
         }
     }
 }
 
 void GameEngine::makeDisplayData() {
-    for (int i = 0; i < GRID_HEIGHT; i++) {
-        for (int k = 0; k < GRID_WIDTH; k++) {
-            displayData[i][k] = gameGridData[i][k];
+    for (int y = 0; y < GRID_HEIGHT; y++) {
+        for (int x = 0; x < GRID_WIDTH; x++) {
+            displayData[y][x] = gameGridData[y][x];
         }
     }
     
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            displayData[blockY + i][blockX + k] = gameGridData[blockY + i][blockX + k] | userBlock[i][k];
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            displayData[blockY + y][blockX + x] = gameGridData[blockY + y][blockX + x] | userBlock[y][x];
         }
     }
 }
 
 bool GameEngine::canGoDown() {
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            if (userBlock[i][k] && (blockY + i + 2) > GRID_HEIGHT) return false;
-            if (userBlock[i][k] && gameGridData[blockY + i + 1][blockX + k]) return false;
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            if (userBlock[y][x] && (blockY + y + 2) > GRID_HEIGHT) return false;
+            if (userBlock[y][x] && gameGridData[blockY + y + 1][blockX + x]) return false;
         }
     }
     return true;
 }
 
 bool GameEngine::canGoLeft() {
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            if (userBlock[i][k] && (blockX + k - 1) < 0) return false;
-            if (userBlock[i][k] && gameGridData[blockY + i][blockX + k - 1]) return false;
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            if (userBlock[y][x] && (blockX + x - 1) < 0) return false;
+            if (userBlock[y][x] && gameGridData[blockY + y][blockX + x - 1]) return false;
         }
     }
     return true;
 }
 
 bool GameEngine::canGoRight() {
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            if (userBlock[i][k] && (blockX + k + 2) > GRID_WIDTH) return false;
-            if (userBlock[i][k] && gameGridData[blockY + i][blockX + k + 1]) return false;
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            if (userBlock[y][x] && (blockX + x + 2) > GRID_WIDTH) return false;
+            if (userBlock[y][x] && gameGridData[blockY + y][blockX + x + 1]) return false;
         }
     }
     return true;
 }
 
 bool GameEngine::canRotate(int rotated[USERBLOCK_SIZE][USERBLOCK_SIZE]) {
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            if (rotated[i][k] && blockX + k < 0) return false;
-            if (rotated[i][k] && blockX + k >= GRID_WIDTH) return false;
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            if (rotated[y][x] && blockX + x < 0) return false;
+            if (rotated[y][x] && blockX + x >= GRID_WIDTH) return false;
         }
     }
     
@@ -147,15 +147,15 @@ bool GameEngine::canRotate(int rotated[USERBLOCK_SIZE][USERBLOCK_SIZE]) {
 void GameEngine::rotate() {
     int temp[USERBLOCK_SIZE][USERBLOCK_SIZE] = { 0, };
     
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            temp[USERBLOCK_SIZE - k - 1][i] = userBlock[i][k];
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            temp[USERBLOCK_SIZE - x - 1][y] = userBlock[y][x];
         }
     }
     
-    for (int i = 0; i < USERBLOCK_SIZE; i++) {
-        for (int k = 0; k < USERBLOCK_SIZE; k++) {
-            userBlock[i][k] = temp[i][k];
+    for (int y = 0; y < USERBLOCK_SIZE; y++) {
+        for (int x = 0; x < USERBLOCK_SIZE; x++) {
+            userBlock[y][x] = temp[y][x];
         }
     }
     
@@ -164,22 +164,22 @@ void GameEngine::rotate() {
 }
 
 bool GameEngine::isFilled(int line) {
-    for (int i = 0; i < GRID_WIDTH; i++) {
-        if (!gameGridData[line][i]) return false;
+    for (int x = 0; x < GRID_WIDTH; x++) {
+        if (!gameGridData[line][x]) return false;
     }
     return true;
 }
 
 void GameEngine::erase(int line) {
-    for (int i = 0; i < GRID_WIDTH; i++) {
-        gameGridData[line][i] = 0;
+    for (int x = 0; x < GRID_WIDTH; x++) {
+        gameGridData[line][x] = 0;
     }
 }
 
 void GameEngine::drop(int line) {
-    for (int i = 0; i < line; i++) {
-        for (int k = 0; k < GRID_WIDTH; k++) {
-            gameGridData[line - i][k] = gameGridData[line - i - 1][k];
+    for (int y = 0; y < line; y++) {
+        for (int x = 0; x < GRID_WIDTH; x++) {
+            gameGridData[line - y][x] = gameGridData[line - y - 1][x];
         }
     }
 }
